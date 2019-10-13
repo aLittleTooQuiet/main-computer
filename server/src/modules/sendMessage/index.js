@@ -1,0 +1,1 @@
+export default (str, io) => io.socket.send(str);

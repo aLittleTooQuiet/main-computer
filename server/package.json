@@ -1,0 +1,20 @@
+{
+  "name": "chat-server",
+  "version": "0.0.1",
+  "description": "A basic chat server/client for a Mothership game.",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "start": "node --experimental-modules ./server/index.js",
+    "test": "jest"
+  },
+  "author": "grahamd0@gmail.com",
+  "license": "ISC",
+  "dependencies": {
+    "koa": "^2.8.2",
+    "koa-socket-2": "^1.2.0"
+  },
+  "devDependencies": {
+    "jest": "^24.9.0"
+  }
+}
