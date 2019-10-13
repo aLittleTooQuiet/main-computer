@@ -1,0 +1,21 @@
+{
+  "name": "main-computer",
+  "version": "0.0.1",
+  "description": "A simple chat server and client for replicating retro sci-fi computer interfaces.",
+  "main": "./server/src/index.js",
+  "type": "module",
+  "scripts": {
+    "start-server": "node --experimental-modules ./server/src/index.js",
+    "start-client": "node --experimental-modules ./client/src/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/aLittleTooQuiet/main-computer.git"
+  },
+  "author": "Graham De Young",
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/aLittleTooQuiet/main-computer/issues"
+  },
+  "homepage": "https://github.com/aLittleTooQuiet/main-computer#readme"
+}

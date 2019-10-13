@@ -1,0 +1,19 @@
+{
+  "name": "chat-client",
+  "version": "1.0.0",
+  "description": "A simple chat client.",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "start": "node --experimental-modules ./app/index.js",
+    "test": "jest"
+  },
+  "author": "grahamd0@gmail.com",
+  "license": "ISC",
+  "dependencies": {
+    "socket.io-client": "^2.3.0"
+  },
+  "devDependencies": {
+    "jest": "^24.9.0"
+  }
+}
