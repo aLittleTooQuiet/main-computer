@@ -3,6 +3,7 @@ import IO from 'koa-socket-2';
 import readline from 'readline';
 import sendMessage from './modules/sendMessage/index.js';
 import parseCommand from './modules/parseCommand/index.js';
+import serverConfig from '../config/server.json';
 import clientConfig from '../config/client.json';
 
 const app = new Koa();
@@ -44,4 +45,4 @@ io.on('message', (ctx, data) => {
   initInterface();
 });
 
-app.listen( process.env.PORT || 3000 );
+app.listen( process.env.PORT || serverConfig.port || 3000 );
