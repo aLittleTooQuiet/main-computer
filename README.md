@@ -8,6 +8,8 @@ For best results, whether you're on the server or client, send only one message 
 
 There are still several bugs, and if you start to see issues such as messages not being sent or duplicate characters appear when typing at the prompt, you can hit `ctrl-c` to exit the app and restart. You should usually be able to reconnect a client to an existing server without issues, but if that doesn't work, restart the server as well.
 
+For best results, run the client using [cool-retro-term](https://github.com/Swordfish90/cool-retro-term).
+
 ## server
 Open a terminal window and navigate to the `main-computer` folder. To start the server, use the command
 ```
