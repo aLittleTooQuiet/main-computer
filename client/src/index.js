@@ -17,6 +17,11 @@ let prompt = ' |> ';
 
 let terminal = createTerminalInterface(process.stdin, process.stdout, prompt);
 
+const onLine = (line) => {
+  lastSentMessage = line;
+  socket.send(lastSentMessage);
+};
+
 const resetTerminal = () => {
   lastSentMessage = null;
   clearTerminal();
@@ -30,10 +35,8 @@ const onRemoteInit = (config = {}) => {
   introText = config.introText || introText;
   prompt = config.prompt || prompt;
   terminal.setPrompt(prompt);
-  terminal.on('line', (line) => {
-    lastSentMessage = line;
-    socket.send(lastSentMessage);
-  });
+  terminal.off('line', onLine);
+  terminal.on('line', onLine);
   resetTerminal();
 };
 
