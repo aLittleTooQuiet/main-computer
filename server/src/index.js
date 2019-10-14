@@ -11,18 +11,20 @@ const io = new IO();
 
 const terminal = readline.createInterface({
   input: process.stdin,
-  output: process.stdout
+  output: process.stdout,
+  prompt: serverConfig.prompt
 });
 
 const initInterface = () => {
-  terminal.question(`> `, (answer) => {
-    if (answer.indexOf('/') === 0) {
-      console.log(`Sending command: ${answer}`);
-      sendMessage(parseCommand(answer), io);
+  terminal.prompt();
+  terminal.on('line', (line) => {
+    if (line.indexOf('/') === 0) {
+      console.log(`Sending command: ${line}`);
+      sendMessage(parseCommand(line), io);
     } else {
-      sendMessage(answer, io);           
-      initInterface();
+      sendMessage(line, io);
     }
+    terminal.prompt();
   });
 }
 
@@ -42,7 +44,7 @@ io.on('connection', () => {
 });
 io.on('message', (ctx, data) => {
   process.stdout.write(`\nUser: ${data}\n`);
-  initInterface();
+  terminal.prompt();
 });
 
 app.listen( process.env.PORT || serverConfig.port || 3000 );

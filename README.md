@@ -23,7 +23,7 @@ By default, the server will run on port 3000. You can change the port in `/serve
 You can change the computer's identity, intro text, and prompt for the client by editing `/server/config/client.json`.
 
 ## client
-Open a terminal window and navigate to the `main-computer` folder. To start the server, use the command
+Open a terminal window and navigate to the `main-computer` folder. To start the client, use the command
 ```
 npm run start-client
 ```

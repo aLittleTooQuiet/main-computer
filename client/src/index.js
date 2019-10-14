@@ -10,34 +10,35 @@ process.stdin.setRawMode(true);
 let socket;
 let lastSentMessage = null;
 let lastReceivedResponse = null;
-let terminal = createTerminalInterface(process.stdin, process.stdout);
 
 let terminalGreeting = '\n\n\n Main Computer\n';
 let introText = ' Please enter a command or query...\n\n > ';
 let prompt = ' |> ';
 
+let terminal = createTerminalInterface(process.stdin, process.stdout, prompt);
+
 const resetTerminal = () => {
-  terminal.close();
+  lastSentMessage = null;
   clearTerminal();
   process.stdout.write(`${terminalGreeting}`);
-  terminal = createTerminalInterface(process.stdin, process.stdout);
-  terminal.question(introText, (answer) => {
-    lastSentMessage = answer;
-    socket.send(lastSentMessage);
-    terminal.close();
-  });
+  process.stdout.write(`${introText}`);
+  terminal.prompt();
 };
 
 const onRemoteInit = (config = {}) => {
   terminalGreeting = config.terminalGreeting || terminalGreeting;
   introText = config.introText || introText;
   prompt = config.prompt || prompt;
+  terminal.setPrompt(prompt);
+  terminal.on('line', (line) => {
+    lastSentMessage = line;
+    socket.send(lastSentMessage);
+  });
   resetTerminal();
 };
 
 const onConnect = () => {
   console.log(`${socket.id} connected`);
-  // resetTerminal();
 }
 
 const onMessage = async (data) => {
@@ -45,17 +46,12 @@ const onMessage = async (data) => {
     lastReceivedResponse = data;
     process.stdout.write('\x1Bc');
     if (lastSentMessage) {
-      process.stdout.write(`\n\n\n ${lastSentMessage}\n`);
+      process.stdout.write(`\n\n\n ${lastSentMessage}\n\n`);
     }
     process.stdout.write(' ');
     await printMessage(`${lastReceivedResponse}`, 10);
     process.stdout.write('\n\n');
-    terminal = createTerminalInterface(process.stdin, process.stdout);
-    terminal.question(`${prompt}`, (answer) => {
-      lastSentMessage = answer;
-      socket.send(lastSentMessage);
-      terminal.close();
-    });
+    terminal.prompt();
   } else {
     if (data.type === 'command') {
       switch (data.command) {
@@ -75,13 +71,11 @@ const onMessage = async (data) => {
 const createServer = (serverUrl) => {
   // TODO sanitize serverUrl
   socket = io(`http://${serverUrl}`);
-  terminal.close();
 
   process.stdin.on('keypress', (str, key) => {
     if (key.ctrl && key.name === 'c') {
       socket.close();
-      terminal.close();
-      process.exit();
+      process.exit(0);
     }
   });
 
