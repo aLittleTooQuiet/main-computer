@@ -2,11 +2,11 @@
 A simple chat server and client for replicating retro sci-fi computer interfaces.
 
 # basic usage
+If you're running a tabletop RPG, for example, Mothership, and you want to give the players a more immersive way to interact with an AI NPC, you can run the server app on the GM's computer, and run the client app on a player's computer.
+
 Make sure you have node.js installed on your system and have installed the dependancies in the `client` and `server` folders with `npm install`.
 
-For best results, whether you're on the server or client, send only one message at a time and then wait for the response. If you try sending mutliple messages between responses, you'll start to have issues.
-
-There are still several bugs, and if you start to see issues such as messages not being sent or duplicate characters appear when typing at the prompt, you can hit `ctrl-c` to exit the app and restart. You should usually be able to reconnect a client to an existing server without issues, but if that doesn't work, restart the server as well.
+If you start to see issues such as messages not being sent or duplicate characters appear when typing at the prompt, you can hit `ctrl-c` to exit the app and restart. You should usually be able to reconnect a client to an existing server without issues, but if that doesn't work, restart the server as well.
 
 For best results, run the client using [cool-retro-term](https://github.com/Swordfish90/cool-retro-term).
 
@@ -17,6 +17,8 @@ npm run start-server
 ```
 
 When the ` > ` prompt appears, you can type `/clear` to send a command to reset the client's terminal to the intro screen.
+
+Wait for the client to send a message, and then the server can send a response. The server can send multiple responses per client message. Each message sent by the server will show up a new line in repsonse to the current client message. A new message from the client will clear their display and start a new line of responses, and so will a `/clear` command on the server.
 
 By default, the server will run on port 3000. You can change the port in `/server/config/server.json`.
 
@@ -29,3 +31,5 @@ npm run start-client
 ```
 
 When prompted, enter the IP address and port of the server.
+
+You'll see a message introducing the computer system and a command prompt. Enter a message and hit enter/return to send to the server and then wait for the response.
