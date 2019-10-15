@@ -9,13 +9,16 @@ process.stdin.setRawMode(true);
 
 let socket;
 let lastSentMessage = null;
-let lastReceivedResponse = null;
+let lastReceivedResponses = [];
 
 let terminalGreeting = '\n\n\n Main Computer\n';
 let introText = ' Please enter a command or query...\n\n > ';
 let prompt = ' |> ';
 
 let terminal = createTerminalInterface(process.stdin, process.stdout, prompt);
+
+const getSentMessageString = () => `\n\n ${lastSentMessage}\n\n\n`;
+const getResponseString = () => ` ${lastReceivedResponses.join('\n\n ')}`;
 
 const resetTerminal = () => {
   lastSentMessage = null;
@@ -25,15 +28,21 @@ const resetTerminal = () => {
   terminal.prompt();
 };
 
+const onLine = (line) => {
+  lastSentMessage = line;
+  lastReceivedResponses = [];
+  socket.send(lastSentMessage);
+  clearTerminal();
+  process.stdout.write(getSentMessageString());
+};
+
 const onRemoteInit = (config = {}) => {
   terminalGreeting = config.terminalGreeting || terminalGreeting;
   introText = config.introText || introText;
   prompt = config.prompt || prompt;
   terminal.setPrompt(prompt);
-  terminal.on('line', (line) => {
-    lastSentMessage = line;
-    socket.send(lastSentMessage);
-  });
+  terminal.off('line', onLine);
+  terminal.on('line', onLine);
   resetTerminal();
 };
 
@@ -43,13 +52,10 @@ const onConnect = () => {
 
 const onMessage = async (data) => {
   if (typeof data === 'string') {
-    lastReceivedResponse = data;
-    process.stdout.write('\x1Bc');
-    if (lastSentMessage) {
-      process.stdout.write(`\n\n\n ${lastSentMessage}\n\n`);
-    }
-    process.stdout.write(' ');
-    await printMessage(`${lastReceivedResponse}`, 10);
+    lastReceivedResponses.push(data);
+    clearTerminal();
+    process.stdout.write(getSentMessageString());
+    await printMessage(getResponseString(), 10);
     process.stdout.write('\n\n');
     terminal.prompt();
   } else {
