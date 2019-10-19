@@ -20,9 +20,9 @@ When the ` > ` prompt appears, you can type `/clear` to send a command to reset 
 
 Wait for the client to send a message, and then the server can send a response. The server can send multiple responses per client message. Each message sent by the server will show up a new line in repsonse to the current client message. A new message from the client will clear their display and start a new line of responses, and so will a `/clear` command on the server.
 
-By default, the server will run on port 3000. You can change the port in `/server/config/server.json`.
+By default, the server will run on port 3000. You can change the port in `/server/config/server.js`.
 
-You can change the computer's identity, intro text, and prompt for the client by editing `/server/config/client.json`.
+You can change the computer's identity, intro text, and prompt for the client by editing `/server/config/client.js`.
 
 ## client
 Open a terminal window and navigate to the `main-computer` folder. To start the client, use the command
