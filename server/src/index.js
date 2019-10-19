@@ -3,8 +3,8 @@ import IO from 'koa-socket-2';
 import readline from 'readline';
 import sendMessage from './modules/sendMessage/index.js';
 import parseCommand from './modules/parseCommand/index.js';
-import serverConfig from '../config/server.json';
-import clientConfig from '../config/client.json';
+import serverConfig from '../config/server.js';
+import clientConfig from '../config/client.js';
 
 const app = new Koa();
 const io = new IO();
