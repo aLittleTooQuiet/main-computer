@@ -20,7 +20,7 @@ When the ` > ` prompt appears, you can type `/clear` to send a command to reset 
 
 Wait for the client to send a message, and then the server can send a response. The server can send multiple responses per client message. Each message sent by the server will show up a new line in repsonse to the current client message. A new message from the client will clear their display and start a new line of responses, and so will a `/clear` command on the server.
 
-By default, the server will run on port 3000. You can change the port by creating the file `/server/config/server.json`. The defaults are `config/server.js`, and will be loaded if there is no `server.json`.
+By default, the server will run on port 3000. You can change the port by creating the file `src/server/config/server.json`. The defaults are `config/server.js`, and will be loaded if there is no `server.json`.
 
 Example `server.json`
 ```
@@ -30,7 +30,7 @@ export default {
 }
 ```
 
-You can change the computer's identity, intro text, and prompt for the client by creating the file `/server/config/client.json`. The defaults are in `config/client.js`, and will be loaded if there is no `client.json`.
+You can change the computer's identity, intro text, and prompt for the client by creating the file `src/server/config/client.json`. The defaults are in `config/client.js`, and will be loaded if there is no `client.json`.
 
 Example `client.json`
 ```

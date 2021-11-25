@@ -1,6 +1,6 @@
 {
   "name": "main-computer",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "A simple chat server and client for replicating retro sci-fi computer interfaces.",
   "main": "./server/src/index.js",
   "type": "module",
