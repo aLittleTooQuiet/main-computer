@@ -1,12 +1,12 @@
 {
   "name": "main-computer",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "A simple chat server and client for replicating retro sci-fi computer interfaces.",
   "main": "./server/src/index.js",
   "type": "module",
   "scripts": {
-    "start-server": "node --experimental-modules ./server/src/index.js",
-    "start-client": "node --experimental-modules ./client/src/index.js"
+    "start-server": "node --experimental-modules ./src/server/index.js",
+    "start-client": "node --experimental-modules ./src/client/index.js"
   },
   "repository": {
     "type": "git",
@@ -17,5 +17,10 @@
   "bugs": {
     "url": "https://github.com/aLittleTooQuiet/main-computer/issues"
   },
-  "homepage": "https://github.com/aLittleTooQuiet/main-computer#readme"
+  "homepage": "https://github.com/aLittleTooQuiet/main-computer#readme",
+  "dependencies": {
+    "koa": "^2.8.2",
+    "koa-socket-2": "^1.2.0",
+    "socket.io-client": "^2.3.1"
+  }
 }

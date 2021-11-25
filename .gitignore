@@ -60,5 +60,5 @@ typings/
 # next.js build output
 .next
 
-server/config/client.json
-server/config/server.json
+src/server/config/client.json
+src/server/config/server.json

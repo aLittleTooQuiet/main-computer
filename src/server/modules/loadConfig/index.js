@@ -2,7 +2,7 @@ import { readFile } from 'fs/promises';
 import path from 'path';
 import { exit } from 'process';
 
-const configPath = `./config`;
+const configPath = `./src/server/config`;
 const clientFile = 'client.json';
 const serverFile = 'server.json';
 
@@ -13,7 +13,7 @@ export const getClientConfig = async () => {
     return JSON.parse(clientConfig);
   } catch (err) {
     try {
-      clientConfig = import('../../../config/client.js');
+      clientConfig = import('../../config/client.js');
       return clientConfig;
     } catch (err) {
       console.log(err.message);
@@ -29,7 +29,7 @@ export const getServerConfig = async () => {
     return JSON.parse(serverConfig);
   } catch (err) {
     try {
-      serverConfig = import('../../../config/server.js');
+      serverConfig = import('../../config/server.js');
       return serverConfig;
     } catch (err) {
       console.log(err.message);
