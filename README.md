@@ -20,6 +20,12 @@ When the ` > ` prompt appears, you can type `/clear` to send a command to reset 
 
 Wait for the client to send a message, and then the server can send a response. The server can send multiple responses per client message. Each message sent by the server will show up a new line in repsonse to the current client message. A new message from the client will clear their display and start a new line of responses, and so will a `/clear` command on the server.
 
+To facilitate more detailed predefined respones, you can load a text file and send it to the client with the `/load [filename]` command, where `[filename]` is the name of a utf-8 encoded text file in the `/data` directory. For example, `/load sample.txt` will send the contents of the `sample.txt` file included with the project.
+
+For best results, add one space to every line of the file after the first, in order for the client to format the response correctly.
+
+You can exit the server by typing the command `/exit` or `/quit`.
+
 By default, the server will run on port 3000. You can change the port by creating the file `src/server/config/server.json`. The defaults are `config/server.js`, and will be loaded if there is no `server.json`.
 
 Example `server.json`
@@ -50,3 +56,5 @@ npm run start-client
 When prompted, enter the IP address and port of the server.
 
 You'll see a message introducing the computer system and a command prompt. Enter a message and hit enter/return to send to the server and then wait for the response.
+
+You can quit the client with `ctrl-c`.

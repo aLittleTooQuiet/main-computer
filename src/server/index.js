@@ -4,6 +4,8 @@ import readline from 'readline';
 import sendMessage from './modules/sendMessage/index.js';
 import parseCommand from './modules/parseCommand/index.js';
 import { getClientConfig, getServerConfig } from './modules/loadConfig/index.js';
+import { exit } from 'process';
+import loadText from './modules/loadText/index.js';
 
 const clientConfig = await getClientConfig();
 const serverConfig = await getServerConfig();
@@ -19,10 +21,25 @@ const terminal = readline.createInterface({
 
 const initInterface = () => {
   terminal.prompt();
-  terminal.on('line', (line) => {
+  terminal.on('line', async (line) => {
     if (line.indexOf('/') === 0) {
-      console.log(`Sending command: ${line}`);
-      sendMessage(parseCommand(line), io);
+      const cmdBits = line.substring(1).split(' ')
+      const cmd = cmdBits[0];
+      switch (cmd) {
+        case 'load':
+          console.log('Loading text file...');
+          const text = await loadText(cmdBits[1]);
+          sendMessage(text, io);
+          break;
+        case 'quit':
+        case 'exit':
+          console.log('Shutting down...');
+          exit(0);
+        default:
+          console.log(`Sending command: ${line}`);
+          sendMessage(parseCommand(line), io);
+          break;
+      }
     } else {
       sendMessage(line, io);
     }
